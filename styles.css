@@ -1,0 +1,21 @@
+body {
+    margin: 0px;
+    background-color: #282a36;
+    font-family: monospace;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.navbar ul{
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar ul li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline;
+    padding: 30px;
+    font-size: 20px;
+} 
