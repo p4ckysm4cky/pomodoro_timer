@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
 }
-.navbar ul{
+.navbar ul {
     display: flex;
     justify-content: space-around;
 }
@@ -16,6 +16,10 @@ body {
     margin: 0;
     padding: 0;
     display: inline;
-    padding: 30px;
+    padding: 20px 30px 20px 30px;
     font-size: 20px;
-} 
+}
+
+.navbar ul li:hover{
+    cursor: pointer;
+}
