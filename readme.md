@@ -11,3 +11,6 @@
 * [ ] Total time counter (hr, min, sec)
 * [ ] Input to store distractions
 * [ ] Ability to clear and remove distractions list
+* [ ] confirmation on changing clock
+* [ ] confirmation on clearing distractions
+* [ ] confirmation on clearing Total time counter
