@@ -1,8 +1,20 @@
+.theme-pomodoro {
+    --color-primary: #282a36;
+    --color-secondary: #44475a;
+    --color-font: white;
+}
+
+.theme-break {
+    --color-primary: #50fa7b;
+    --color-secondary: #8be9fd;
+    --color-font: #282a36;
+}
+
 body {
     margin: 0px;
-    background-color: #282a36;
+    background-color: var(--color-primary);
     font-family: monospace;
-    color: white;
+    color: var(--color-font);
     display: flex;
     justify-content: center;
     align-items: center;

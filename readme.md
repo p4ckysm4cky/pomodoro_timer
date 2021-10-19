@@ -6,7 +6,8 @@
 
 ## Things to add
 
-* [ ] Change background depending on what timer selected
+* [x] Change background depending on what timer selected
+* [ ] Add transition on theme change
 * [ ] Ninja mode (hides timer count)
 * [ ] Total time counter (hr, min, sec)
 * [ ] Input to store distractions

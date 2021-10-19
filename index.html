@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" , class="theme-pomodoro">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -12,15 +12,28 @@
         <div class="verticalStructure">
             <div class="navbar">
                 <ul>
-                    <li>Short Pomodoro</li>
-                    <li>Pomodoro</li>
-                    <li>Short Break</li>
-                    <li>Long Break</li>
+                    <li id="shortPomodoro">Short Pomodoro</li>
+                    <li id="pomodoro">Pomodoro</li>
+                    <li id="shortBreak">Short Break</li>
+                    <li id="longBreak">Long Break</li>
                 </ul>
             </div>
             <div class="clockContainer">
                 <p id="clock">25:00</p>
             </div>
+            <script>
+                // Testing purposes
+                document
+                    .getElementById("shortBreak")
+                    .addEventListener("click", () => {
+                        document.documentElement.className = "theme-break";
+                    });
+                document
+                    .getElementById("pomodoro")
+                    .addEventListener("click", () => {
+                        document.documentElement.className = "theme-pomodoro";
+                    });
+            </script>
         </div>
     </body>
 </html>
