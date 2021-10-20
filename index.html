@@ -20,20 +20,24 @@
             </div>
             <div class="clockContainer">
                 <p id="clock">25:00</p>
+                <div class="clockBtnContainer">
+                    <button>Start</button>
+                    <button>Reset</button>
+                </div>
             </div>
-            <script>
-                // Testing purposes
-                document
-                    .getElementById("shortBreak")
-                    .addEventListener("click", () => {
-                        document.documentElement.className = "theme-break";
-                    });
-                document
-                    .getElementById("pomodoro")
-                    .addEventListener("click", () => {
-                        document.documentElement.className = "theme-pomodoro";
-                    });
-            </script>
         </div>
+        <script>
+            // Testing purposes
+            document
+                .getElementById("shortBreak")
+                .addEventListener("click", () => {
+                    document.documentElement.className = "theme-break";
+                });
+            document
+                .getElementById("pomodoro")
+                .addEventListener("click", () => {
+                    document.documentElement.className = "theme-pomodoro";
+                });
+        </script>
     </body>
 </html>

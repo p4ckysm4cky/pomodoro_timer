@@ -6,7 +6,7 @@
 
 .theme-break {
     --color-primary: #50fa7b;
-    --color-secondary: #8be9fd;
+    --color-secondary: #41f36e;
     --color-font: #282a36;
 }
 
@@ -61,9 +61,28 @@ body {
 
 #clock {
     font-size: 150px;
+    margin-bottom: 90px;
 }
+
 @media (max-width: 768px) {
     #clock {
         font-size: 90px;
     }
+}
+
+.clockBtnContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.clockBtnContainer button {
+    background-color: var(--color-secondary);
+    padding: 10px 25px 10px 25px;
+    font-size: 20px;
+    border-style: solid;
+    border-color: var(--color-font);
+    border-radius: 8px;
+    color: var(--color-font);
+    transition: background-color 500ms, color 500ms, border-color 500ms;
+    cursor: pointer;
 }
