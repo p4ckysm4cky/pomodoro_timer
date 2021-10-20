@@ -57,6 +57,7 @@ body {
 
 .clockContainer {
     margin-top: 50px;
+    margin-bottom: 40px;
 }
 
 #clock {
@@ -84,5 +85,53 @@ body {
     border-radius: 8px;
     color: var(--color-font);
     transition: background-color 500ms, color 500ms, border-color 500ms;
+    cursor: pointer;
+}
+
+#distractionInput {
+    border: 0px var(--color-font) solid;
+    border-bottom: 3px var(--color-font) solid;
+    border-radius: 1px;
+    font-size: 22px;
+    width: 300px;
+    color: var(--color-font);
+    background-color: var(--color-primary);
+    transition: color 500ms, background-color 500ms, border-bottom 500ms;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--color-font);
+    opacity: 1; /* Firefox */
+    transition: 500ms;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: var(--color-font);
+    transition: 500ms;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: var(--color-font);
+    transition: color 500ms;
+  }
+
+
+#distractionInput:focus, input:focus {
+    outline: none;
+   
+}
+
+#distractionContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#distractionContainer li {
+    font-size: 18px;
+}
+
+#distractionContainer li:hover {
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
     cursor: pointer;
 }
