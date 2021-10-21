@@ -135,3 +135,30 @@ body {
     text-decoration-thickness: 3px;
     cursor: pointer;
 }
+
+#timeSpent {
+    margin-top: 200px;
+    align-self: flex-start;
+    font-size: 25px;
+}
+
+#timeSpent:hover {
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    #timeSpent {
+        align-self: center;
+        margin-top: 100px;
+    }
+}
+
+#inputBtn {
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: var(--color-font);
+    transition: background-color 500ms;
+}
