@@ -13,8 +13,7 @@
 * [x] Total time counter (hr, min, sec)
 * [x] Input to store distractions
 * [x] Ability to clear and remove distractions list
-* [ ] Utilise LocalStorage for storing distractions and Time spent
+* [x] Utilise LocalStorage for storing distractions and Time spent
 * [ ] confirmation on changing clock
 * [ ] confirmation on clearing distractions
 * [ ] confirmation on clearing Total time counter
-* [ ] Add localstorage for distraction list
