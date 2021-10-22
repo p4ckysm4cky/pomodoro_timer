@@ -7,6 +7,7 @@
 ## Things to add
 
 * [x] Change background depending on what timer selected
+* [x] Fix distraction text overflow (adding `word-wrap: break-word;` to `li` seems to fix it)
 * [x] Add transition on theme change
 * [ ] Ninja mode (hides timer count)
 * [x] Total time counter (hr, min, sec)
@@ -16,4 +17,4 @@
 * [ ] confirmation on changing clock
 * [ ] confirmation on clearing distractions
 * [ ] confirmation on clearing Total time counter
-* [ ] Add localstorage for distracion list
+* [ ] Add localstorage for distraction list
