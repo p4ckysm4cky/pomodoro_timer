@@ -130,6 +130,7 @@ input:focus {
 
 #distractionContainer li {
     font-size: 18px;
+    user-select: none;
 }
 
 #distractionContainer li:hover {
@@ -166,5 +167,5 @@ input:focus {
 }
 
 #inputBtn:hover {
-    cursor: pointer
+    cursor: pointer;
 }
