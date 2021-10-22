@@ -99,26 +99,28 @@ body {
     transition: color 500ms, background-color 500ms, border-bottom 500ms;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: var(--color-font);
     opacity: 1; /* Firefox */
     transition: 500ms;
-  }
-  
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: var(--color-font);
     transition: 500ms;
-  }
-  
-  ::-ms-input-placeholder { /* Microsoft Edge */
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
     color: var(--color-font);
     transition: color 500ms;
-  }
+}
 
-
-#distractionInput:focus, input:focus {
+#distractionInput:focus,
+input:focus {
     outline: none;
-   
 }
 
 #distractionContainer {
@@ -148,7 +150,7 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 710px) {
     #timeSpent {
         align-self: center;
         margin-top: 100px;
@@ -161,4 +163,8 @@ body {
     border-radius: 50%;
     background-color: var(--color-font);
     transition: background-color 500ms;
+}
+
+#inputBtn:hover {
+    cursor: pointer
 }

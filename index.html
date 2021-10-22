@@ -5,7 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="styles.css" />
-        <script src="pomodoro.js"></script>
         <title>Pomodoro Timer</title>
     </head>
     <body>
@@ -35,9 +34,7 @@
                     <button id="inputBtn"></button>
                 </div>
                 <ul id="distractionContainer">
-                    <li>Check messages</li>
-                    <li>Make chocolate milk</li>
-                    <li>Do the dishes</li>
+                    <!-- This is where we put the distractions -->
                 </ul>
             </div>
             <p id="timeSpent">Time spent: 00:35:36</p>
@@ -55,5 +52,7 @@
                     document.documentElement.className = "theme-pomodoro";
                 });
         </script>
+        <script src="./src/pomodoro.js"></script>
+        <script src="./src/task.js"></script>
     </body>
 </html>
