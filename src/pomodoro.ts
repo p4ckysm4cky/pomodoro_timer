@@ -4,6 +4,10 @@ function Time(seconds: number = 0) {
 }
 
 Time.prototype.formated = function () {
+    /**
+     * Returns an object which contains
+     * hours, minutes, seconds
+     */
     const original_seconds = this.seconds;
     let return_time = {
         hours: Math.floor(original_seconds / 3600),
@@ -13,11 +17,34 @@ Time.prototype.formated = function () {
     return return_time;
 };
 
-// Test
-let test = new Time();
-let test1 = new Time(1);
-let test2 = new Time(599);
-let test3 = new Time(600);
-let test4 = new Time(3600);
-let test5 = new Time(360009);
-let test6 = new Time(0.2);
+// Normal Functions
+function presetCount(minutes: number) {
+    countdown.seconds = minutes * 60;
+}
+
+function runCount(isWork: boolean, callback?) {
+    /**
+     * Updates the countdown to decrement every second
+     * isWork when True increments timeSpent
+     */
+    const oneSecTimer = setInterval(() => {
+        if (isRun) {
+            countdown.seconds--;
+            console.log(countdown.formated());
+            if (isWork) timeSpent.seconds++;
+            if (countdown.seconds === 0) {
+                if (callback) callback();
+                clearInterval(oneSecTimer);
+            }
+        }
+    }, 1000);
+}
+
+// Main
+let isRun: boolean = false;
+const timeSpent = new Time();
+const countdown = new Time();
+// test
+isRun = true;
+presetCount(1 / 6);
+runCount(true);
