@@ -48,6 +48,12 @@ body {
 .navbar ul li:hover {
     cursor: pointer;
 }
+@media (max-width: 768px) {
+    .navbar ul li {
+        padding: 15px 12px 15px 12px
+    }
+}
+
 
 @media (max-width: 480px) {
     .navbar ul li {
