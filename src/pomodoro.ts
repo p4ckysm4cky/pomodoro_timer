@@ -22,19 +22,32 @@ function presetCount(minutes: number) {
     countdown.seconds = minutes * 60;
 }
 
+function playAlarm() {
+    const audio = new Audio("../audio/alarm.flac");
+    console.log(audio.volume)
+    audio.play()
+}
+
 function runCount(isWork: boolean, callback?) {
     /**
      * Updates the countdown to decrement every second
      * isWork when True increments timeSpent
      */
-    const oneSecTimer = setInterval(() => {
-        if (isRun) {
+    let intervalTimer = setInterval(() => {
+        if (isRun && countdown.seconds !== 0) {
             countdown.seconds--;
             console.log(countdown.formated());
             if (isWork) timeSpent.seconds++;
+            // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
                 if (callback) callback();
-                clearInterval(oneSecTimer);
+                // <include some reset timer here>
+                clearInterval(intervalTimer);
+                return;
+            // Clear the timer when paused 
+            } else if (!isRun) {
+                clearInterval(intervalTimer);
+                return;
             }
         }
     }, 1000);
@@ -47,4 +60,4 @@ const countdown = new Time();
 // test
 isRun = true;
 presetCount(1 / 6);
-runCount(true);
+// runCount(() => console.log("finished"));
