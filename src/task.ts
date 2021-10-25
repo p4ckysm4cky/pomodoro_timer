@@ -61,7 +61,7 @@ function loadDistractions() {
      * it is pushed back into the distractions
      * array and renders it to html
      */
-    if (localStorage.distractions !== null) {
+    if (localStorage.distractions) {
         const tempArray = JSON.parse(localStorage.distractions);
         // add string for tempArray back into distractions
         tempArray.forEach((element) => {
