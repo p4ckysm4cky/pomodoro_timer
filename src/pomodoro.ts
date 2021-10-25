@@ -17,18 +17,20 @@ Time.prototype.formated = function () {
     return return_time;
 };
 
-// Normal Functions
-function presetCount(minutes: number) {
-    countdown.seconds = minutes * 60;
-}
+Time.prototype.setCount = function (minutes: number) {
+    /**
+     * Sets the countdown using minutes
+     */
+    this.seconds = minutes * 60;
+};
 
+// Normal Functions
 function playAlarm() {
     const audio = new Audio("../audio/alarm.flac");
-    console.log(audio.volume)
-    audio.play()
+    audio.play();
 }
 
-function runCount(isWork: boolean, callback?) {
+function runCount(callback?) {
     /**
      * Updates the countdown to decrement every second
      * isWork when True increments timeSpent
@@ -37,6 +39,7 @@ function runCount(isWork: boolean, callback?) {
         if (isRun && countdown.seconds !== 0) {
             countdown.seconds--;
             console.log(countdown.formated());
+            console.log(countdown.seconds);
             if (isWork) timeSpent.seconds++;
             // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
@@ -44,7 +47,7 @@ function runCount(isWork: boolean, callback?) {
                 // <include some reset timer here>
                 clearInterval(intervalTimer);
                 return;
-            // Clear the timer when paused 
+                // Clear the timer when paused
             } else if (!isRun) {
                 clearInterval(intervalTimer);
                 return;
@@ -54,10 +57,16 @@ function runCount(isWork: boolean, callback?) {
 }
 
 // Main
-let isRun: boolean = false;
+const navShortPomo = document.getElementById("shortPomodoro");
+const navPomo = document.getElementById("pomodoro");
+const navShortBreak = document.getElementById("shortBreak");
+const navLongBreak = document.getElementById("longBreak");
+
+let isRun: boolean = false; // Determines if clock should be running
+let isWork: boolean = true; // Determines if time spent should be increasing
 const timeSpent = new Time();
 const countdown = new Time();
+
 // test
 isRun = true;
-presetCount(1 / 6);
-// runCount(() => console.log("finished"));
+countdown.setCount(1 / 6);

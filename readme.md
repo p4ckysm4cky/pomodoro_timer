@@ -14,6 +14,7 @@
 * [x] Input to store distractions
 * [x] Ability to clear and remove distractions list
 * [x] Utilise LocalStorage for storing distractions and Time spent
+* [ ] Add a handler for determining which type of countdown should be used
 * [ ] confirmation on changing clock
 * [ ] confirmation on clearing distractions
 * [ ] confirmation on clearing Total time counter
