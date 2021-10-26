@@ -56,11 +56,50 @@ function runCount(callback?) {
     }, 1000);
 }
 
+function select(event) {
+    /**
+     * A function that handles which mode the pomdoro should be
+     * "preset beforehand" when the type of clock isi selected.
+     * It is to be used as a callback function with an event
+     */
+    console.log(`${event.target.id} was clicked!`);
+    let id: string = event.target.id;
+    switch (id) {
+        case "shortPomodoro":
+            document.documentElement.className = "theme-pomodoro";
+            break;
+        case "pomodoro":
+            document.documentElement.className = "theme-pomodoro";
+            break;
+        case "shortBreak":
+            document.documentElement.className = "theme-break";
+            break;
+        case "longBreak":
+            document.documentElement.className = "theme-break";
+            break;
+        default:
+            console.log("Error in select");
+    }
+}
+
 // Main
 const navShortPomo = document.getElementById("shortPomodoro");
 const navPomo = document.getElementById("pomodoro");
 const navShortBreak = document.getElementById("shortBreak");
 const navLongBreak = document.getElementById("longBreak");
+
+navShortPomo.addEventListener("click", (event) => {
+    select(event);
+});
+navPomo.addEventListener("click", (event) => {
+    select(event);
+});
+navShortBreak.addEventListener("click", (event) => {
+    select(event);
+});
+navLongBreak.addEventListener("click", (event) => {
+    select(event);
+});
 
 let isRun: boolean = false; // Determines if clock should be running
 let isWork: boolean = true; // Determines if time spent should be increasing
