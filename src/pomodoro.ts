@@ -73,36 +73,50 @@ function select(id: string) {
      * "preset beforehand" when the type of clock is selected.
      * It is to be used as a callback function for an event
      */
-    switch (id) {
-        case "shortPomodoro":
-            document.documentElement.className = "theme-pomodoro";
-            isWork = true;
-            countdown.setCount(10);
-            clockP.innerHTML = displayCount();
-            break;
-        case "pomodoro":
-            document.documentElement.className = "theme-pomodoro";
-            isWork = true;
-            countdown.setCount(25);
-            clockP.innerHTML = displayCount();
-            break;
-        case "shortBreak":
-            document.documentElement.className = "theme-break";
-            isWork = false;
-            countdown.setCount(5);
-            clockP.innerHTML = displayCount();
-            break;
-        case "longBreak":
-            document.documentElement.className = "theme-break";
-            isWork = false;
-            countdown.setCount(15);
-            clockP.innerHTML = displayCount();
-            break;
-        default:
-            console.log("Error in select");
+    let do_switch: boolean = true;
+    if (isRun) {
+        let confirmation: boolean = confirm(
+            "Switching will cause your timer to stop."
+        );
+        if (!confirmation) do_switch = false;
+    }
+
+    if (do_switch) {
+        isRun = false;
+        switch (id) {
+            case "shortPomodoro":
+                currentSelection = id;
+                document.documentElement.className = "theme-pomodoro";
+                isWork = true;
+                countdown.setCount(10);
+                clockP.innerHTML = displayCount();
+                break;
+            case "pomodoro":
+                currentSelection = id;
+                document.documentElement.className = "theme-pomodoro";
+                isWork = true;
+                countdown.setCount(25);
+                clockP.innerHTML = displayCount();
+                break;
+            case "shortBreak":
+                currentSelection = id;
+                document.documentElement.className = "theme-break";
+                isWork = false;
+                countdown.setCount(5);
+                clockP.innerHTML = displayCount();
+                break;
+            case "longBreak":
+                currentSelection = id;
+                document.documentElement.className = "theme-break";
+                isWork = false;
+                countdown.setCount(15);
+                clockP.innerHTML = displayCount();
+                break;
+            default:
+                console.log("Error in select");
+        }
     }
 }
-
 // Main
 const clockP = document.getElementById("clock");
 
@@ -126,9 +140,10 @@ navLongBreak.addEventListener("click", (event) => {
 
 let isRun: boolean = false; // Determines if clock should be running
 let isWork: boolean = true; // Determines if time spent should be increasing
+let currentSelection: string; // Stores the ID of the clock that is currently selected
 const timeSpent = new Time();
 const countdown = new Time();
 
 // test
-isRun = true;
-countdown.setCount(1 / 6);
+select("pomodoro");
+// countdown.setCount(1 / 6);
