@@ -56,26 +56,47 @@ function runCount(callback?) {
     }, 1000);
 }
 
-function select(event) {
+function displayCount(): string {
+    /**
+     * Updates the text on clock DOM to match the
+     * seconds of the countdown object
+     */
+    const clockObject = countdown.formated();
+    let minutes = clockObject.minutes.toString().padStart(2, "0");
+    let seconds = clockObject.seconds.toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+}
+
+function select(id: string) {
     /**
      * A function that handles which mode the pomdoro should be
-     * "preset beforehand" when the type of clock isi selected.
-     * It is to be used as a callback function with an event
+     * "preset beforehand" when the type of clock is selected.
+     * It is to be used as a callback function for an event
      */
-    console.log(`${event.target.id} was clicked!`);
-    let id: string = event.target.id;
     switch (id) {
         case "shortPomodoro":
             document.documentElement.className = "theme-pomodoro";
+            isWork = true;
+            countdown.setCount(10);
+            clockP.innerHTML = displayCount();
             break;
         case "pomodoro":
             document.documentElement.className = "theme-pomodoro";
+            isWork = true;
+            countdown.setCount(25);
+            clockP.innerHTML = displayCount();
             break;
         case "shortBreak":
             document.documentElement.className = "theme-break";
+            isWork = false;
+            countdown.setCount(5);
+            clockP.innerHTML = displayCount();
             break;
         case "longBreak":
             document.documentElement.className = "theme-break";
+            isWork = false;
+            countdown.setCount(15);
+            clockP.innerHTML = displayCount();
             break;
         default:
             console.log("Error in select");
@@ -83,22 +104,24 @@ function select(event) {
 }
 
 // Main
+const clockP = document.getElementById("clock");
+
 const navShortPomo = document.getElementById("shortPomodoro");
 const navPomo = document.getElementById("pomodoro");
 const navShortBreak = document.getElementById("shortBreak");
 const navLongBreak = document.getElementById("longBreak");
 
 navShortPomo.addEventListener("click", (event) => {
-    select(event);
+    select((event.target as Element).id);
 });
 navPomo.addEventListener("click", (event) => {
-    select(event);
+    select((event.target as Element).id);
 });
 navShortBreak.addEventListener("click", (event) => {
-    select(event);
+    select((event.target as Element).id);
 });
 navLongBreak.addEventListener("click", (event) => {
-    select(event);
+    select((event.target as Element).id);
 });
 
 let isRun: boolean = false; // Determines if clock should be running
