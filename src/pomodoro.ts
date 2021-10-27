@@ -26,7 +26,7 @@ Time.prototype.setCount = function (minutes: number) {
 
 // Normal Functions
 function playAlarm() {
-    const audio = new Audio("../audio/alarm.flac");
+    const audio = new Audio("./audio/alarm.flac");
     audio.play();
 }
 
