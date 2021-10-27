@@ -38,20 +38,22 @@ function runCount(callback?) {
     let intervalTimer = setInterval(() => {
         if (isRun && countdown.seconds !== 0) {
             countdown.seconds--;
+            clockP.innerHTML = displayCount();
             console.log(countdown.formated());
             console.log(countdown.seconds);
             if (isWork) timeSpent.seconds++;
             // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
                 if (callback) callback();
-                // <include some reset timer here>
-                clearInterval(intervalTimer);
-                return;
-                // Clear the timer when paused
-            } else if (!isRun) {
+                isRun = false;
+                select(currentSelection);
                 clearInterval(intervalTimer);
                 return;
             }
+        } else {
+            // Clear the timer when paused
+            clearInterval(intervalTimer);
+            return;
         }
     }, 1000);
 }
@@ -83,6 +85,7 @@ function select(id: string) {
 
     if (do_switch) {
         isRun = false;
+        startBtn.innerText = "Start";
         switch (id) {
             case "shortPomodoro":
                 currentSelection = id;
@@ -119,11 +122,31 @@ function select(id: string) {
 }
 // Main
 const clockP = document.getElementById("clock");
+const startBtn = document.getElementById("start");
+const resetBtn = document.getElementById("reset");
 
 const navShortPomo = document.getElementById("shortPomodoro");
 const navPomo = document.getElementById("pomodoro");
 const navShortBreak = document.getElementById("shortBreak");
 const navLongBreak = document.getElementById("longBreak");
+
+startBtn.addEventListener("click", () => {
+    if (startBtn.innerText.toLowerCase() === "start") {
+        isRun = true;
+        startBtn.innerText = "Stop";
+        runCount(playAlarm);
+    } else {
+        isRun = false;
+        startBtn.innerText = "Start";
+    }
+});
+
+resetBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to reset?")) {
+        isRun = false
+        select(currentSelection);
+    }
+});
 
 navShortPomo.addEventListener("click", (event) => {
     select((event.target as Element).id);
