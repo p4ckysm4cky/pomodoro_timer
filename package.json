@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "worker-timers": "^7.0.40"
   }
 }

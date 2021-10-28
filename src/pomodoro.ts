@@ -1,3 +1,5 @@
+import * as workerTimers from "worker-timers";
+
 // Time Class
 function Time(seconds: number = 0) {
     this.seconds = seconds;
@@ -35,7 +37,7 @@ function runCount(callback?) {
      * Updates the countdown to decrement every second
      * isWork when True increments timeSpent
      */
-    let intervalTimer = setInterval(() => {
+    let intervalTimer = workerTimers.setInterval(() => {
         if (isRun && countdown.seconds !== 0) {
             countdown.seconds--;
             clockP.innerHTML = displayCount();
@@ -143,7 +145,7 @@ startBtn.addEventListener("click", () => {
 
 resetBtn.addEventListener("click", () => {
     if (confirm("Are you sure you want to reset?")) {
-        isRun = false
+        isRun = false;
         select(currentSelection);
     }
 });
