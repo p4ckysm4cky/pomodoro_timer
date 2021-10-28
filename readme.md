@@ -17,5 +17,6 @@
 * [x] Add a handler for determining which type of countdown should be used
 * [x] confirmation on changing clock
 * [ ] Add a undo on task deletion
+* [ ] Rework time spent using the Date library
 * [ ] confirmation on clearing distractions
 * [x] confirmation on clearing Total time counter

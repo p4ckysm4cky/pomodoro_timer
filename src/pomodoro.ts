@@ -35,21 +35,33 @@ function runCount(callback?) {
      * Updates the countdown to decrement every second
      * isWork when True increments timeSpent
      */
+    let startTime = Date.now();
+    let startSeconds = countdown.seconds;
     let intervalTimer = setInterval(() => {
-        if (isRun && countdown.seconds !== 0) {
-            countdown.seconds--;
+        if (isRun && countdown.seconds > 0) {
+            // This strat is used, so we can accurately calculate time
+            countdown.seconds = Math.round(
+                startSeconds - (Date.now() - startTime) / 1000
+            );
             clockP.innerHTML = displayCount();
-            console.log(countdown.formated());
-            console.log(countdown.seconds);
             if (isWork) timeSpent.seconds++;
             // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
+                console.log("Exited on 0");
                 if (callback) callback();
                 isRun = false;
                 select(currentSelection);
                 clearInterval(intervalTimer);
                 return;
             }
+            // Worse case scenario the thread is inactive, and our timer goes to negative
+        } else if (countdown.seconds <= 0) {
+            console.log("Exited on -number");
+            if (callback) callback();
+            isRun = false;
+            select(currentSelection);
+            clearInterval(intervalTimer);
+            return;
         } else {
             // Clear the timer when paused
             clearInterval(intervalTimer);
@@ -143,7 +155,7 @@ startBtn.addEventListener("click", () => {
 
 resetBtn.addEventListener("click", () => {
     if (confirm("Are you sure you want to reset?")) {
-        isRun = false
+        isRun = false;
         select(currentSelection);
     }
 });
