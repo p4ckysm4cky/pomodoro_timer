@@ -37,7 +37,7 @@ function runCount(callback?) {
      */
     let startTime = Date.now();
     let startSeconds = countdown.seconds;
-    let timeWorker = new Worker("./src/worker.js")
+    let timeWorker = new Worker("./build/worker.js")
     timeWorker.postMessage(" ")
     timeWorker.onmessage = () => {
         if (isRun && countdown.seconds > 0) {
