@@ -37,7 +37,9 @@ function runCount(callback?) {
      */
     let startTime = Date.now();
     let startSeconds = countdown.seconds;
-    let intervalTimer = setInterval(() => {
+    let timeWorker = new Worker("./src/worker.js")
+    timeWorker.postMessage(" ")
+    timeWorker.onmessage = () => {
         if (isRun && countdown.seconds > 0) {
             // This strat is used, so we can accurately calculate time
             countdown.seconds = Math.round(
@@ -51,7 +53,7 @@ function runCount(callback?) {
                 if (callback) callback();
                 isRun = false;
                 select(currentSelection);
-                clearInterval(intervalTimer);
+                timeWorker.terminate()
                 return;
             }
             // Worse case scenario the thread is inactive, and our timer goes to negative
@@ -60,14 +62,14 @@ function runCount(callback?) {
             if (callback) callback();
             isRun = false;
             select(currentSelection);
-            clearInterval(intervalTimer);
+            timeWorker.terminate()
             return;
         } else {
             // Clear the timer when paused
-            clearInterval(intervalTimer);
+            timeWorker.terminate()
             return;
         }
-    }, 1000);
+    }
 }
 
 function displayCount(): string {
