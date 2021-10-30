@@ -26,7 +26,6 @@ Time.prototype.setCount = function (minutes: number) {
 
 // Normal Functions
 function playAlarm() {
-    const audio = new Audio("./audio/alarm.flac");
     audio.play();
 }
 
@@ -37,8 +36,8 @@ function runCount(callback?) {
      */
     let startTime = Date.now();
     let startSeconds = countdown.seconds;
-    let timeWorker = new Worker("./build/worker.js")
-    timeWorker.postMessage(" ")
+    let timeWorker = new Worker("./build/worker.js");
+    timeWorker.postMessage(" ");
     timeWorker.onmessage = () => {
         if (isRun && countdown.seconds > 0) {
             // This strat is used, so we can accurately calculate time
@@ -53,7 +52,7 @@ function runCount(callback?) {
                 if (callback) callback();
                 isRun = false;
                 select(currentSelection);
-                timeWorker.terminate()
+                timeWorker.terminate();
                 return;
             }
             // Worse case scenario the thread is inactive, and our timer goes to negative
@@ -62,14 +61,14 @@ function runCount(callback?) {
             if (callback) callback();
             isRun = false;
             select(currentSelection);
-            timeWorker.terminate()
+            timeWorker.terminate();
             return;
         } else {
             // Clear the timer when paused
-            timeWorker.terminate()
+            timeWorker.terminate();
             return;
         }
-    }
+    };
 }
 
 function displayCount(): string {
@@ -180,7 +179,6 @@ let isWork: boolean = true; // Determines if time spent should be increasing
 let currentSelection: string; // Stores the ID of the clock that is currently selected
 const timeSpent = new Time();
 const countdown = new Time();
+const audio = new Audio("./audio/alarm.flac");
 
-// test
 select("pomodoro");
-// countdown.setCount(1 / 6);
