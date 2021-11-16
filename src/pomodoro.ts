@@ -124,14 +124,14 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-pomodoro";
                 isWork = true;
-                countdown.setCount(10);
+                countdown.setCount(25);
                 clockP.innerHTML = displayCount();
                 break;
             case "pomodoro":
                 currentSelection = id;
                 document.documentElement.className = "theme-pomodoro";
                 isWork = true;
-                countdown.setCount(25);
+                countdown.setCount(45);
                 clockP.innerHTML = displayCount();
                 break;
             case "shortBreak":
@@ -242,4 +242,4 @@ loadTimeSpent(); // load timeSpent from localstorage
 timeSpentSpan.innerHTML = displaySpent(); // Displays timeSpent to DOM
 const audio = new Audio("./audio/alarm.flac");
 
-select("pomodoro");
+select("shortPomodoro");

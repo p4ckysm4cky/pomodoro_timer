@@ -13,7 +13,8 @@ function makeDistract(distraction: string) {
         newLi.remove();
         const removeIndex = distractions.indexOf(distraction);
         if (removeIndex > -1) {
-            distractions.splice(removeIndex, 1);
+            let removedItem = distractions.splice(removeIndex, 1);
+            removedDistractions.unshift(removedItem[0]);
         } else {
             console.log("An Error occurred in removing distraction");
         }
@@ -72,5 +73,27 @@ function loadDistractions() {
 
 const distractionList = document.getElementById("distractionContainer");
 let distractions: Array<string> = [];
+let removedDistractions: Array<string> = [];
 loadDistractions();
 watchInput();
+
+// Strat for dealing with multi-key presses
+let keysPressed = {};
+// add keydown to object when pressed down
+document.addEventListener("keydown", (event) => {
+    keysPressed[event.key] = true;
+});
+// remove keydown to object when released
+document.addEventListener("keyup", (event) => {
+    delete keysPressed[event.key];
+});
+// check if ctrl + z is pressed
+document.addEventListener("keydown", (event) => {
+    keysPressed[event.key] = true;
+    if (keysPressed["Control"] && event.key == "z") {
+        if (removedDistractions.length > 0) {
+            let item = removedDistractions.shift();
+            distractionList.appendChild(makeDistract(item));
+        }
+    }
+});
