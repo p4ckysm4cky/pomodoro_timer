@@ -91,8 +91,6 @@ document.addEventListener("keyup", (event) => {
 document.addEventListener("keydown", (event) => {
     keysPressed[event.key] = true;
     if (keysPressed["Control"] && event.key == "z") {
-        delete keysPressed["Control"];
-        delete keysPressed["z"];
         if (removedDistractions.length > 0) {
             let item = removedDistractions.shift();
             distractionList.appendChild(makeDistract(item));
