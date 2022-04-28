@@ -138,7 +138,7 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(5);
+                countdown.setCount(15);
                 clockP.innerHTML = displayCount();
                 break;
             case "longBreak":
