@@ -84,7 +84,7 @@ function displaySpent() {
     var hours = clockObject.hours.toString().padStart(2, "0");
     var minutes = clockObject.minutes.toString().padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
-    return hours + ":" + minutes + ":" + seconds;
+    return "".concat(hours, ":").concat(minutes, ":").concat(seconds);
 }
 function displayCount() {
     /**
@@ -94,7 +94,7 @@ function displayCount() {
     var clockObject = countdown.formated();
     var minutes = clockObject.minutes.toString().padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
-    return minutes + ":" + seconds;
+    return "".concat(minutes, ":").concat(seconds);
 }
 function select(id) {
     /**
@@ -130,14 +130,14 @@ function select(id) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(15);
+                countdown.setCount(5);
                 clockP.innerHTML = displayCount();
                 break;
             case "longBreak":
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(30);
+                countdown.setCount(50);
                 clockP.innerHTML = displayCount();
                 break;
             default:

@@ -138,14 +138,14 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(15);
+                countdown.setCount(5);
                 clockP.innerHTML = displayCount();
                 break;
             case "longBreak":
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(30);
+                countdown.setCount(50);
                 clockP.innerHTML = displayCount();
                 break;
             default:
@@ -227,8 +227,8 @@ timeSpentP.addEventListener("click", () => {
         let confirmation: boolean = confirm("Do you want to reset time spent?");
         if (confirmation) {
             timeSpent.seconds = 0;
-            timeSpentSpan.innerHTML = displaySpent()
-            updateTimeSpent()
+            timeSpentSpan.innerHTML = displaySpent();
+            updateTimeSpent();
         }
     }
 });
