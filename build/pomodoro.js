@@ -133,6 +133,13 @@ function select(id) {
                 countdown.setCount(5);
                 clockP.innerHTML = displayCount();
                 break;
+            case "mediumBreak":
+                currentSelection = id;
+                document.documentElement.className = "theme-break";
+                isWork = false;
+                countdown.setCount(15);
+                clockP.innerHTML = displayCount();
+                break;
             case "longBreak":
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
@@ -170,6 +177,7 @@ var resetBtn = document.getElementById("reset");
 var navShortPomo = document.getElementById("shortPomodoro");
 var navPomo = document.getElementById("pomodoro");
 var navShortBreak = document.getElementById("shortBreak");
+var navMediumBreak = document.getElementById("mediumBreak");
 var navLongBreak = document.getElementById("longBreak");
 var timeSpentP = document.getElementById("timeSpent");
 var timeSpentSpan = document.getElementById("timeSpentValue");
@@ -197,6 +205,9 @@ navPomo.addEventListener("click", function (event) {
     select(event.target.id);
 });
 navShortBreak.addEventListener("click", function (event) {
+    select(event.target.id);
+});
+navMediumBreak.addEventListener("click", function (event) {
     select(event.target.id);
 });
 navLongBreak.addEventListener("click", function (event) {

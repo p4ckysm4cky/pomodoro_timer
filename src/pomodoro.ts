@@ -141,6 +141,13 @@ function select(id: string) {
                 countdown.setCount(5);
                 clockP.innerHTML = displayCount();
                 break;
+            case "mediumBreak":
+                currentSelection = id;
+                document.documentElement.className = "theme-break";
+                isWork = false;
+                countdown.setCount(15);
+                clockP.innerHTML = displayCount();
+                break;
             case "longBreak":
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
@@ -181,6 +188,7 @@ const resetBtn = document.getElementById("reset");
 const navShortPomo = document.getElementById("shortPomodoro");
 const navPomo = document.getElementById("pomodoro");
 const navShortBreak = document.getElementById("shortBreak");
+const navMediumBreak = document.getElementById("mediumBreak");
 const navLongBreak = document.getElementById("longBreak");
 
 const timeSpentP = document.getElementById("timeSpent");
@@ -211,6 +219,9 @@ navPomo.addEventListener("click", (event) => {
     select((event.target as Element).id);
 });
 navShortBreak.addEventListener("click", (event) => {
+    select((event.target as Element).id);
+});
+navMediumBreak.addEventListener("click", (event) => {
     select((event.target as Element).id);
 });
 navLongBreak.addEventListener("click", (event) => {
