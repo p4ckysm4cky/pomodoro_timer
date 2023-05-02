@@ -92,7 +92,9 @@ function displayCount() {
      * seconds of the countdown object
      */
     var clockObject = countdown.formated();
-    var minutes = clockObject.minutes.toString().padStart(2, "0");
+    var minutes = (clockObject.hours * 60 + clockObject.minutes)
+        .toString()
+        .padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
     return "".concat(minutes, ":").concat(seconds);
 }
@@ -116,10 +118,17 @@ function select(id) {
                 currentSelection = id;
                 document.documentElement.className = "theme-pomodoro";
                 isWork = true;
-                countdown.setCount(25);
+                countdown.setCount(5);
                 clockP.innerHTML = displayCount();
                 break;
             case "pomodoro":
+                currentSelection = id;
+                document.documentElement.className = "theme-pomodoro";
+                isWork = true;
+                countdown.setCount(25);
+                clockP.innerHTML = displayCount();
+                break;
+            case "longPomodoro":
                 currentSelection = id;
                 document.documentElement.className = "theme-pomodoro";
                 isWork = true;
@@ -144,7 +153,7 @@ function select(id) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(50);
+                countdown.setCount(60);
                 clockP.innerHTML = displayCount();
                 break;
             default:
@@ -176,6 +185,7 @@ var startBtn = document.getElementById("start");
 var resetBtn = document.getElementById("reset");
 var navShortPomo = document.getElementById("shortPomodoro");
 var navPomo = document.getElementById("pomodoro");
+var navLongPomo = document.getElementById("longPomodoro");
 var navShortBreak = document.getElementById("shortBreak");
 var navMediumBreak = document.getElementById("mediumBreak");
 var navLongBreak = document.getElementById("longBreak");
@@ -202,6 +212,9 @@ navShortPomo.addEventListener("click", function (event) {
     select(event.target.id);
 });
 navPomo.addEventListener("click", function (event) {
+    select(event.target.id);
+});
+navLongPomo.addEventListener("click", function (event) {
     select(event.target.id);
 });
 navShortBreak.addEventListener("click", function (event) {
