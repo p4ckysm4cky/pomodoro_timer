@@ -34,6 +34,7 @@ function runCount(callback) {
     var startTime = Date.now();
     var startSeconds = countdown.seconds;
     var startSpent = timeSpent.seconds;
+    var startBreakSpent = breakSpent.seconds;
     var timeWorker = new Worker("./build/worker.js");
     timeWorker.postMessage(" ");
     timeWorker.onmessage = function () {
@@ -46,6 +47,12 @@ function runCount(callback) {
                     startSpent + (Date.now() - startTime) / 1000));
                 updateTimeSpent();
                 timeSpentSpan.innerHTML = displaySpent();
+            }
+            else {
+                breakSpent.seconds = Math.round((breakSpent.seconds =
+                    startBreakSpent + (Date.now() - startTime) / 1000));
+                updateTimeSpent();
+                breakSpentSpan.innerHTML = displayBreakSpent();
             }
             // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
@@ -81,6 +88,17 @@ function displaySpent() {
      * seconds of the timeSpent object
      */
     var clockObject = timeSpent.formated();
+    var hours = clockObject.hours.toString().padStart(2, "0");
+    var minutes = clockObject.minutes.toString().padStart(2, "0");
+    var seconds = clockObject.seconds.toString().padStart(2, "0");
+    return "".concat(hours, ":").concat(minutes, ":").concat(seconds);
+}
+function displayBreakSpent() {
+    /**
+     * Returns a properly formated string to match the
+     * seconds of the breakSpent object
+     */
+    var clockObject = breakSpent.formated();
     var hours = clockObject.hours.toString().padStart(2, "0");
     var minutes = clockObject.minutes.toString().padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
@@ -146,7 +164,7 @@ function select(id) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(15);
+                countdown.setCount(20);
                 clockP.innerHTML = displayCount();
                 break;
             case "longBreak":
@@ -168,6 +186,8 @@ function updateTimeSpent() {
      */
     var stringifySeconds = JSON.stringify(timeSpent.seconds);
     localStorage.setItem("timeSpent", stringifySeconds);
+    var stringifyBreakSeconds = JSON.stringify(breakSpent.seconds);
+    localStorage.setItem("breakSpent", stringifyBreakSeconds);
 }
 function loadTimeSpent() {
     /**
@@ -177,6 +197,10 @@ function loadTimeSpent() {
     if (localStorage.timeSpent) {
         var timeSpentSeconds = JSON.parse(localStorage.timeSpent);
         timeSpent.seconds = timeSpentSeconds;
+    }
+    if (localStorage.breakSpent) {
+        var breakSpentSeconds = JSON.parse(localStorage.breakSpent);
+        breakSpent.seconds = breakSpentSeconds;
     }
 }
 // Main
@@ -191,6 +215,7 @@ var navMediumBreak = document.getElementById("mediumBreak");
 var navLongBreak = document.getElementById("longBreak");
 var timeSpentP = document.getElementById("timeSpent");
 var timeSpentSpan = document.getElementById("timeSpentValue");
+var breakSpentSpan = document.getElementById("breakSpentValue");
 startBtn.addEventListener("click", function () {
     if (startBtn.innerText.toLowerCase() === "start") {
         isRun = true;
@@ -230,7 +255,7 @@ timeSpentP.addEventListener("click", function () {
     /**
      * Resets the time spent on click
      */
-    if (timeSpent.seconds === 0) {
+    if (timeSpent.seconds === 0 && breakSpent.seconds === 0) {
         return;
     }
     else {
@@ -238,6 +263,8 @@ timeSpentP.addEventListener("click", function () {
         if (confirmation) {
             timeSpent.seconds = 0;
             timeSpentSpan.innerHTML = displaySpent();
+            breakSpent.seconds = 0;
+            breakSpentSpan.innerHTML = displayBreakSpent();
             updateTimeSpent();
         }
     }
@@ -246,9 +273,11 @@ var isRun = false; // Determines if clock should be running
 var isWork = true; // Determines if time spent should be increasing
 var currentSelection; // Stores the ID of the clock that is currently selected
 var timeSpent = new Time();
+var breakSpent = new Time();
 var countdown = new Time();
 loadTimeSpent(); // load timeSpent from localstorage
 timeSpentSpan.innerHTML = displaySpent(); // Displays timeSpent to DOM
+breakSpentSpan.innerHTML = displayBreakSpent();
 var audio = new Audio("./audio/alarm.flac");
 select("shortPomodoro");
 //# sourceMappingURL=pomodoro.js.map

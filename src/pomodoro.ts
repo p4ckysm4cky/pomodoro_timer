@@ -37,6 +37,7 @@ function runCount(callback?) {
     const startTime = Date.now();
     const startSeconds = countdown.seconds;
     const startSpent = timeSpent.seconds;
+    const startBreakSpent = breakSpent.seconds;
     let timeWorker = new Worker("./build/worker.js");
     timeWorker.postMessage(" ");
     timeWorker.onmessage = () => {
@@ -53,6 +54,13 @@ function runCount(callback?) {
                 );
                 updateTimeSpent();
                 timeSpentSpan.innerHTML = displaySpent();
+            } else {
+                breakSpent.seconds = Math.round(
+                    (breakSpent.seconds =
+                        startBreakSpent + (Date.now() - startTime) / 1000)
+                );
+                updateTimeSpent();
+                breakSpentSpan.innerHTML = displayBreakSpent();
             }
             // This basically only runs on the transition from 1 -> 0
             if (countdown.seconds === 0) {
@@ -85,6 +93,18 @@ function displaySpent(): string {
      * seconds of the timeSpent object
      */
     const clockObject = timeSpent.formated();
+    let hours = clockObject.hours.toString().padStart(2, "0");
+    let minutes = clockObject.minutes.toString().padStart(2, "0");
+    let seconds = clockObject.seconds.toString().padStart(2, "0");
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+function displayBreakSpent(): string {
+    /**
+     * Returns a properly formated string to match the
+     * seconds of the breakSpent object
+     */
+    const clockObject = breakSpent.formated();
     let hours = clockObject.hours.toString().padStart(2, "0");
     let minutes = clockObject.minutes.toString().padStart(2, "0");
     let seconds = clockObject.seconds.toString().padStart(2, "0");
@@ -154,7 +174,7 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(15);
+                countdown.setCount(20);
                 clockP.innerHTML = displayCount();
                 break;
             case "longBreak":
@@ -177,6 +197,8 @@ function updateTimeSpent() {
      */
     let stringifySeconds = JSON.stringify(timeSpent.seconds);
     localStorage.setItem("timeSpent", stringifySeconds);
+    let stringifyBreakSeconds = JSON.stringify(breakSpent.seconds);
+    localStorage.setItem("breakSpent", stringifyBreakSeconds);
 }
 
 function loadTimeSpent() {
@@ -187,6 +209,10 @@ function loadTimeSpent() {
     if (localStorage.timeSpent) {
         const timeSpentSeconds = JSON.parse(localStorage.timeSpent);
         timeSpent.seconds = timeSpentSeconds;
+    }
+    if (localStorage.breakSpent) {
+        const breakSpentSeconds = JSON.parse(localStorage.breakSpent);
+        breakSpent.seconds = breakSpentSeconds;
     }
 }
 // Main
@@ -203,6 +229,7 @@ const navLongBreak = document.getElementById("longBreak");
 
 const timeSpentP = document.getElementById("timeSpent");
 const timeSpentSpan = document.getElementById("timeSpentValue");
+const breakSpentSpan = document.getElementById("breakSpentValue");
 
 startBtn.addEventListener("click", () => {
     if (startBtn.innerText.toLowerCase() === "start") {
@@ -245,13 +272,15 @@ timeSpentP.addEventListener("click", () => {
     /**
      * Resets the time spent on click
      */
-    if (timeSpent.seconds === 0) {
+    if (timeSpent.seconds === 0 && breakSpent.seconds === 0) {
         return;
     } else {
         let confirmation: boolean = confirm("Do you want to reset time spent?");
         if (confirmation) {
             timeSpent.seconds = 0;
             timeSpentSpan.innerHTML = displaySpent();
+            breakSpent.seconds = 0;
+            breakSpentSpan.innerHTML = displayBreakSpent();
             updateTimeSpent();
         }
     }
@@ -261,9 +290,11 @@ let isRun: boolean = false; // Determines if clock should be running
 let isWork: boolean = true; // Determines if time spent should be increasing
 let currentSelection: string; // Stores the ID of the clock that is currently selected
 const timeSpent = new Time();
+const breakSpent = new Time();
 const countdown = new Time();
 loadTimeSpent(); // load timeSpent from localstorage
 timeSpentSpan.innerHTML = displaySpent(); // Displays timeSpent to DOM
+breakSpentSpan.innerHTML = displayBreakSpent();
 const audio = new Audio("./audio/alarm.flac");
 
 select("shortPomodoro");
