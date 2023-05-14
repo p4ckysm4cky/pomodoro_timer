@@ -146,7 +146,7 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-pomodoro";
                 isWork = true;
-                countdown.setCount(5);
+                countdown.setCount(10);
                 clockP.innerHTML = displayCount();
                 break;
             case "pomodoro":
