@@ -167,7 +167,7 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(5);
+                countdown.setCount(10);
                 clockP.innerHTML = displayCount();
                 break;
             case "mediumBreak":

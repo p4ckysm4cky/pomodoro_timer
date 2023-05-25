@@ -91,7 +91,7 @@ function displaySpent() {
     var hours = clockObject.hours.toString().padStart(2, "0");
     var minutes = clockObject.minutes.toString().padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
-    return "".concat(hours, ":").concat(minutes, ":").concat(seconds);
+    return hours + ":" + minutes + ":" + seconds;
 }
 function displayBreakSpent() {
     /**
@@ -102,7 +102,7 @@ function displayBreakSpent() {
     var hours = clockObject.hours.toString().padStart(2, "0");
     var minutes = clockObject.minutes.toString().padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
-    return "".concat(hours, ":").concat(minutes, ":").concat(seconds);
+    return hours + ":" + minutes + ":" + seconds;
 }
 function displayCount() {
     /**
@@ -114,7 +114,7 @@ function displayCount() {
         .toString()
         .padStart(2, "0");
     var seconds = clockObject.seconds.toString().padStart(2, "0");
-    return "".concat(minutes, ":").concat(seconds);
+    return minutes + ":" + seconds;
 }
 function select(id) {
     /**
@@ -157,7 +157,7 @@ function select(id) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(5);
+                countdown.setCount(10);
                 clockP.innerHTML = displayCount();
                 break;
             case "mediumBreak":
