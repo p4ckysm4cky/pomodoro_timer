@@ -181,7 +181,7 @@ function select(id: string) {
                 currentSelection = id;
                 document.documentElement.className = "theme-break";
                 isWork = false;
-                countdown.setCount(60);
+                countdown.setCount(45);
                 clockP.innerHTML = displayCount();
                 break;
             default:
