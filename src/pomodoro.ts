@@ -286,6 +286,34 @@ timeSpentP.addEventListener("click", () => {
     }
 });
 
+//FIXME: This is really bad from a UX perspective
+// Display prompt to add time to timeSpent in minutes
+document.addEventListener("keydown", (event) => {
+    if (event.altKey && event.key === "t") {
+        let minutes: number = parseInt(prompt("Add time in minutes:"));
+        if (isNaN(minutes)) {
+            alert("Invalid input");
+        } else {
+            timeSpent.seconds += minutes * 60;
+            timeSpentSpan.innerHTML = displaySpent();
+            updateTimeSpent();
+        }
+    }
+});
+// Display prompt to add time to breakSpent in minutes
+document.addEventListener("keydown", (event) => {
+    if (event.altKey && event.key === "b") {
+        let minutes: number = parseInt(prompt("Add time in minutes:"));
+        if (isNaN(minutes)) {
+            alert("Invalid input");
+        } else {
+            breakSpent.seconds += minutes * 60;
+            breakSpentSpan.innerHTML = displayBreakSpent();
+            updateTimeSpent();
+        }
+    }
+});
+
 let isRun: boolean = false; // Determines if clock should be running
 let isWork: boolean = true; // Determines if time spent should be increasing
 let currentSelection: string; // Stores the ID of the clock that is currently selected
