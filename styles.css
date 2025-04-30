@@ -156,10 +156,22 @@ input:focus {
     cursor: pointer;
 }
 
-#timeSpent {
+#timeSpentContainer {
     margin-top: 200px;
     align-self: flex-start;
     font-size: 25px;
+    display: flex;
+}
+
+#timeSpentAdjustmentContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0px 5px;
+}
+
+#timeSpentAdjustmentContainer .circularBtn {
+    margin: 5px 0px;
 }
 
 #timeSpent:hover {
@@ -169,11 +181,23 @@ input:focus {
 }
 
 @media (max-width: 710px) {
-    #timeSpent {
+    #timeSpentContainer {
         align-self: center;
         margin-top: 100px;
         font-size: px;
     }
+}
+
+.circularBtn {
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: var(--color-font);
+    transition: background-color 500ms;
+}
+
+.circularBtn:hover {
+    cursor: pointer;
 }
 
 #inputBtn {

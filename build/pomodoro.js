@@ -213,9 +213,11 @@ var navLongPomo = document.getElementById("longPomodoro");
 var navShortBreak = document.getElementById("shortBreak");
 var navMediumBreak = document.getElementById("mediumBreak");
 var navLongBreak = document.getElementById("longBreak");
-var timeSpentP = document.getElementById("timeSpent");
+var timeSpentDiv = document.getElementById("timeSpent");
 var timeSpentSpan = document.getElementById("timeSpentValue");
 var breakSpentSpan = document.getElementById("breakSpentValue");
+var adjustWorkDurationBtn = document.getElementById("adjustWorkDurationBtn");
+var adjustBreakDurationBtn = document.getElementById("adjustBreakDurationBtn");
 startBtn.addEventListener("click", function () {
     if (startBtn.innerText.toLowerCase() === "start") {
         isRun = true;
@@ -251,7 +253,7 @@ navMediumBreak.addEventListener("click", function (event) {
 navLongBreak.addEventListener("click", function (event) {
     select(event.target.id);
 });
-timeSpentP.addEventListener("click", function () {
+timeSpentDiv.addEventListener("click", function () {
     /**
      * Resets the time spent on click
      */
@@ -269,34 +271,51 @@ timeSpentP.addEventListener("click", function () {
         }
     }
 });
-//FIXME: This is really bad from a UX perspective
+var handleUpdateWorkTime = function () {
+    var minutes = parseInt(prompt("Add more minutes to work time:"));
+    if (!minutes) {
+        return;
+    }
+    if (isNaN(minutes)) {
+        alert("Invalid input");
+    }
+    else {
+        timeSpent.seconds += minutes * 60;
+        timeSpentSpan.innerHTML = displaySpent();
+        updateTimeSpent();
+    }
+};
+var handleUpdateBreakTime = function () {
+    var minutes = parseInt(prompt("Add more minutes to break time:"));
+    if (!minutes) {
+        return;
+    }
+    if (isNaN(minutes)) {
+        alert("Invalid input");
+    }
+    else {
+        breakSpent.seconds += minutes * 60;
+        breakSpentSpan.innerHTML = displayBreakSpent();
+        updateTimeSpent();
+    }
+};
 // Display prompt to add time to timeSpent in minutes
 document.addEventListener("keydown", function (event) {
     if (event.altKey && event.key === "t") {
-        var minutes = parseInt(prompt("Add time in minutes:"));
-        if (isNaN(minutes)) {
-            alert("Invalid input");
-        }
-        else {
-            timeSpent.seconds += minutes * 60;
-            timeSpentSpan.innerHTML = displaySpent();
-            updateTimeSpent();
-        }
+        handleUpdateWorkTime();
     }
 });
 // Display prompt to add time to breakSpent in minutes
 document.addEventListener("keydown", function (event) {
     if (event.altKey && event.key === "b") {
-        var minutes = parseInt(prompt("Add time in minutes:"));
-        if (isNaN(minutes)) {
-            alert("Invalid input");
-        }
-        else {
-            breakSpent.seconds += minutes * 60;
-            breakSpentSpan.innerHTML = displayBreakSpent();
-            updateTimeSpent();
-        }
+        handleUpdateBreakTime();
     }
+});
+adjustWorkDurationBtn.addEventListener("click", function () {
+    handleUpdateWorkTime();
+});
+adjustBreakDurationBtn.addEventListener("click", function () {
+    handleUpdateBreakTime();
 });
 var isRun = false; // Determines if clock should be running
 var isWork = true; // Determines if time spent should be increasing

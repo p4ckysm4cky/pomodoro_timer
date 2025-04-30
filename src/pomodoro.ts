@@ -227,9 +227,14 @@ const navShortBreak = document.getElementById("shortBreak");
 const navMediumBreak = document.getElementById("mediumBreak");
 const navLongBreak = document.getElementById("longBreak");
 
-const timeSpentP = document.getElementById("timeSpent");
+const timeSpentDiv = document.getElementById("timeSpent");
 const timeSpentSpan = document.getElementById("timeSpentValue");
 const breakSpentSpan = document.getElementById("breakSpentValue");
+
+const adjustWorkDurationBtn = document.getElementById("adjustWorkDurationBtn");
+const adjustBreakDurationBtn = document.getElementById(
+    "adjustBreakDurationBtn"
+);
 
 startBtn.addEventListener("click", () => {
     if (startBtn.innerText.toLowerCase() === "start") {
@@ -268,7 +273,7 @@ navLongBreak.addEventListener("click", (event) => {
     select((event.target as Element).id);
 });
 
-timeSpentP.addEventListener("click", () => {
+timeSpentDiv.addEventListener("click", () => {
     /**
      * Resets the time spent on click
      */
@@ -286,32 +291,53 @@ timeSpentP.addEventListener("click", () => {
     }
 });
 
-//FIXME: This is really bad from a UX perspective
+const handleUpdateWorkTime = () => {
+    let minutes: number = parseInt(prompt("Add more minutes to work time:"));
+    if (!minutes) {
+        return;
+    }
+    if (isNaN(minutes)) {
+        alert("Invalid input");
+    } else {
+        timeSpent.seconds += minutes * 60;
+        timeSpentSpan.innerHTML = displaySpent();
+        updateTimeSpent();
+    }
+};
+
+const handleUpdateBreakTime = () => {
+    let minutes: number = parseInt(prompt("Add more minutes to break time:"));
+    if (!minutes) {
+        return;
+    }
+    if (isNaN(minutes)) {
+        alert("Invalid input");
+    } else {
+        breakSpent.seconds += minutes * 60;
+        breakSpentSpan.innerHTML = displayBreakSpent();
+        updateTimeSpent();
+    }
+};
+
 // Display prompt to add time to timeSpent in minutes
 document.addEventListener("keydown", (event) => {
     if (event.altKey && event.key === "t") {
-        let minutes: number = parseInt(prompt("Add time in minutes:"));
-        if (isNaN(minutes)) {
-            alert("Invalid input");
-        } else {
-            timeSpent.seconds += minutes * 60;
-            timeSpentSpan.innerHTML = displaySpent();
-            updateTimeSpent();
-        }
+        handleUpdateWorkTime();
     }
 });
 // Display prompt to add time to breakSpent in minutes
 document.addEventListener("keydown", (event) => {
     if (event.altKey && event.key === "b") {
-        let minutes: number = parseInt(prompt("Add time in minutes:"));
-        if (isNaN(minutes)) {
-            alert("Invalid input");
-        } else {
-            breakSpent.seconds += minutes * 60;
-            breakSpentSpan.innerHTML = displayBreakSpent();
-            updateTimeSpent();
-        }
+        handleUpdateBreakTime();
     }
+});
+
+adjustWorkDurationBtn.addEventListener("click", () => {
+    handleUpdateWorkTime();
+});
+
+adjustBreakDurationBtn.addEventListener("click", () => {
+    handleUpdateBreakTime();
 });
 
 let isRun: boolean = false; // Determines if clock should be running
@@ -324,5 +350,4 @@ loadTimeSpent(); // load timeSpent from localstorage
 timeSpentSpan.innerHTML = displaySpent(); // Displays timeSpent to DOM
 breakSpentSpan.innerHTML = displayBreakSpent();
 const audio = new Audio("./audio/alarm.flac");
-
 select("shortPomodoro");
